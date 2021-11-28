@@ -1,11 +1,10 @@
 import tkinter as tk
-from tkmacosx import Button 
+# from tkmacosx import Button
+from tkinter import  Button
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg,NavigationToolbar2Tk
 import numpy as np
-
-
 
 
 def drawfig():
@@ -41,9 +40,9 @@ class initface():
         #基准界面initface
         self.initface = tk.Frame(self.root)
         
-        table_b = Button(self.initface, text='Show tables', width=150, command=self.table_)  # , bg='red')
+        table_b = Button(self.initface, text='Show tables', command=self.table_)  # , bg='red')
         table_b.place(x=330, y=230,  anchor='w')
-        plot_b = Button(self.initface, text='Show plots', width=150, command=self.plot_)  # , bg='red')
+        plot_b = Button(self.initface, text='Show plots', command=self.plot_)  # , bg='red')
         plot_b.place(x=330, y =260, anchor='w')
        
         
@@ -73,19 +72,19 @@ class table():
         self.label_dy = 30
         self.labels = []
         
-        back_main = Button(self.table, text='back', width=50, command=self.back)
+        back_main = Button(self.table, text='back', command=self.back)
         back_main.place(x=0, y=30, anchor='w')
         
-        clear = Button(self.table, text='clear', width=100, command=self.clear)  #, bg='red')
+        clear = Button(self.table, text='clear', command=self.clear)  #, bg='red')
         clear.place(x=650, y=530, anchor='w')
         
-        func1 = Button(self.table, text='func1', width=120, height =30, command=self.func1) #, bg='red')
+        func1 = Button(self.table, text='func1',  command=self.func1) #, bg='red')
         func1.place(x=0, y=80, anchor='w')
         
-        show_table_head = Button(self.table, text='show_table_head', width=120, height =30,command=self.show_table_head) #, bg='red')
+        show_table_head = Button(self.table, text='show_table_head', command=self.show_table_head) #, bg='red')
         show_table_head.place(x=0, y=120, anchor='w')
         
-        describe = Button(self.table, text='describe', width=120, height =30, command=self.describe ) #, bg='red')
+        describe = Button(self.table, text='describe',  command=self.describe ) #, bg='red')
         describe.place(x=0, y=160, anchor='w')
         
         self.table.pack(padx=10, pady=5, fill=tk.BOTH, expand=True)
@@ -147,10 +146,10 @@ class plot():
         self.clear = None
         self.toolbar = None
         
-        back_main = Button(self.plot, text='back', width=50, command=self.back)
+        back_main = Button(self.plot, text='back', command=self.back)
         back_main.place(x=0, y=30, anchor='w')
         
-        plot1 = Button(self.plot, text='plot1', width=120, command=self.draw) #, bg='red')
+        plot1 = Button(self.plot, text='plot1', command=self.draw) #, bg='red')
         plot1.place(x=0, y=70, anchor='w')
         
         self.plot.pack(padx=10, pady=5, fill=tk.BOTH, expand=True)
@@ -171,7 +170,7 @@ class plot():
         # self.toolbar = NavigationToolbar2Tk(self.canvas, self.plot)
         # self.toolbar.update()
         
-        self.clear = Button(self.plot, text='clear', width=100, command=self.clear_plot)
+        self.clear = Button(self.plot, text='clear', command=self.clear_plot)
         self.clear.place(x=650, y=530, anchor='w')
         
         self.canvas.get_tk_widget().pack()
