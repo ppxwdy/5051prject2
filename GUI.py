@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg,NavigationToolbar2Tk
 import numpy as np
 
+
 back_button_w = 10
 func_button_w = 15
 clear_button_w = 10
