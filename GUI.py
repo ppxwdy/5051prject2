@@ -72,6 +72,10 @@ class table(frame):
         self.label_dy = 30
         self.labels = []
 
+        self.text = None
+        self.bar_v = None
+        self.bar_h = None
+
         back_main = Button(self.table, text='back', width=back_button_w, command=self.back)
         back_main.place(x=0, y=30, anchor='w')
 
@@ -97,7 +101,14 @@ class table(frame):
     def clear(self):
         for i in range(len(self.labels)):
             self.labels.pop().destroy()
-            # l.destroy()
+
+        if self.text is not None:
+            self.text.destroy()
+        if self.text is not None:
+            self.bar_v.destroy()
+        if self.text is not None:
+            self.bar_h.destroy()
+
 
     def func1(self):
         self.clear()
