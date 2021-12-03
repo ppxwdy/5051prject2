@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class preocessor:
+class processor:
 
     def __init__(self, file):
         self.file = file
@@ -50,9 +50,21 @@ class preocessor:
         """
         return self.__sort(file)
 
-    def count(self, data):
-        """
-        count the info in the give data
-        :return:
-        """
-        pass
+    # def count(self, data):
+    #     """
+    #     count the info in the give data
+    #     :return:
+    #     """
+    #     pass
+
+    def head(self, number_of_row):
+        return self.file.head(number_of_row)
+
+    def col_name(self):
+        return [c for c in self.file.columns]
+
+    def read_column(self, column):
+        return self.file[column]
+
+    def describe(self):
+        return self.file.describe()
