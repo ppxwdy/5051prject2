@@ -1,4 +1,5 @@
 import pandas as pd
+from collections import Counter
 
 
 class processor:
@@ -50,12 +51,20 @@ class processor:
         """
         return self.__sort(file)
 
-    # def count(self, data):
-    #     """
-    #     count the info in the give data
-    #     :return:
-    #     """
-    #     pass
+    def count_col_content(self, col):
+        """
+        count the info in the given row of the file
+        :return:
+        """
+        data = list(self.read_column(col).values.tolist())
+  
+        counter = Counter(data)
+
+        df = pd.DataFrame()
+        df.insert(df.shape[1], 'Element', list(counter.keys()))
+        df.insert(df.shape[1], 'Number of Element', list(counter.values()))
+        return df
+        
 
     def head(self, number_of_row):
         return self.file.head(number_of_row)
