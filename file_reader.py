@@ -33,6 +33,7 @@ class reader:
             split_d = data.to_string().split('\n')
         else:
             split_d = data
+
         for d in split_d:
             rtn.append(str(d)+'\n')
         return rtn
@@ -44,8 +45,20 @@ class searcher(reader):
         super(searcher, self).__init__(fp)
         self.count_key = ['Element', 'Number of Element']
 
-    def func1(self):
-        pass
+    def check_in_col(self, col_data, record):
+        if record not in col_data:
+            return ['No record. Please check your input or search something else.']
+        else:
+            df = pd.DataFrame()
+            df.insert(df.shape[1], 'Element', [record])
+            df.insert(df.shape[1], 'Number of Element', [col_data[record]])
+            return self.to_string(df)
+
+    def check_table(self, targets):
+        data = self.fp.check(targets)
+        return self.to_string(data)
+
+
 
 
 class table_reader(reader):

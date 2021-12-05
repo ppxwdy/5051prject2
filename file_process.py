@@ -6,6 +6,8 @@ class processor:
 
     def __init__(self, file):
         self.file = file
+        self.col_names = self.file.columns.values.tolist()
+        self.rows, self.cols = self.file.shape
 
     def __sort(self, data):
         """
@@ -57,14 +59,13 @@ class processor:
         :return:
         """
         data = list(self.read_column(col).values.tolist())
-  
+
         counter = Counter(data)
 
         df = pd.DataFrame()
         df.insert(df.shape[1], 'Element', list(counter.keys()))
         df.insert(df.shape[1], 'Number of Element', list(counter.values()))
         return df
-        
 
     def head(self, number_of_row):
         return self.file.head(number_of_row)
@@ -77,3 +78,53 @@ class processor:
 
     def describe(self):
         return self.file.describe()
+
+    def check_in(self, col, data):
+        target_col = list(self.file[col].unique())
+
+        if not isinstance(target_col[0], str):
+            for i in range(len(target_col)):
+                target_col[i] = str(target_col[i])
+
+        target_col = set(target_col)
+
+        if data not in target_col:
+
+            return False
+        else:
+            return True
+
+    def check(self, targets):
+
+        temp_lines = []
+
+        for i in range(len(self.col_names) - 1):
+            col = self.col_names[i]
+            tar = targets[i]
+
+            if tar != '':
+                if not self.check_in(col, tar):
+                    return ['No record. Please check your input or search something else.']
+                if i == 0:
+                    for row in range(self.rows):
+                        if str(self.file[col].iloc[row]) == tar:
+                            temp_lines.append(row)
+                else:
+                    row = 0
+                    while row < len(temp_lines):
+                        if str(self.file[col].iloc[i]) != tar:
+                            temp_lines.pop(row)
+                        else: row += 1
+
+        if len(temp_lines) == 0:
+            return ['No record. Please check your input or search something else.']
+        dfs = []
+        for l in temp_lines:
+            s = self.file.iloc[l].values.reshape(1, self.cols)
+            dfs.append(pd.DataFrame(s, columns=self.col_names))
+
+        rtn = pd.concat(dfs, ignore_index=True)
+        # rtn.columns = self.col_names
+        # print(self.file.iloc[temp_lines[0]].values.reshape(1, self.cols))
+        print(rtn.head().to_string())
+        return rtn

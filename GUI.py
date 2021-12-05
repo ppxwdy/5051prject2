@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg,NavigationToolbar2Tk
 import numpy as np
+from file_process import *
+from file_reader import *
 
 
 back_button_w = 10
@@ -16,6 +18,8 @@ class frame:
 
     def __init__(self, root):
         self.root = root
+        self.col_name = ['VehicleType', 'DerectionTime_O', 'GantryID_O', 'DerectionTime_D', 'GantryID_D'
+                , 'TripLength', 'TripEnd', 'TripInformation']
 
 class window:
 
@@ -236,6 +240,17 @@ class search(frame):
 
 
 if __name__ == '__main__':
+    
+    file = pd.read_csv('TDCS_M06A_20190830_080000.csv')
+    # file.columns = [str(i) for i in range(file.shape[1])] 
+    col_name = ['VehicleType', 'DerectionTime_O', 'GantryID_O', 'DerectionTime_D', 'GantryID_D'
+                , 'TripLength', 'TripEnd', 'TripInformation']
+    file.columns = col_name
+    
+    
+    
+    
+    
     root = tk.Tk()
     window(root)
     root.mainloop()

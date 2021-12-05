@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import Button
 from typing import Text
 import pandas as pd
@@ -22,8 +23,8 @@ class frame:
 
     def __init__(self, root, fp):
         self.root = root
-        self.col_name = ['VehicleType', 'DerectionTime_O', 'GantryID_O', 'DerectionTime_D', 'GantryID_D'
-            , 'TripLength', 'TripEnd', 'TripInformation']
+        self.col_name = fp.col_names #['VehicleType', 'DerectionTime_O', 'GantryID_O', 'DerectionTime_D', 'GantryID_D'
+            # , 'TripLength', 'TripEnd', 'TripInformation']
         self.fp = fp
         self.tr = table_reader(self.fp)
         self.sc = searcher(self.fp)
@@ -74,7 +75,7 @@ class table_info(frame):
         self.root.config()  # bg
         # 基准界面initface
         self.table_info = tk.Frame(self.root)
-        self.text_x, self.text_y = 150, 50
+        self.text_x, self.text_y = 180, 50
 
         self.text = None
 
@@ -87,8 +88,8 @@ class table_info(frame):
         back = Button(self.table_info, text='BACK', width=other_button_w, command=self.back)
         back.place(x=back_x, y=back_y)
 
-        clear = Button(self.table_info, text='CLEAR', width=other_button_w, command=self.clear)
-        clear.place(x=clear_x, y=clear_y)
+        clear = Button(self.table_info, text='CLEAR', command=self.clear)
+        clear.place(x=clear_x+40, y=clear_y)
 
         describe_file = Button(self.table_info, text='Describe the Data', width=func_button_w, command=self.describe_file)
         describe_file.place(x=0, y=title_u_l_y+40)
@@ -176,8 +177,8 @@ class col_info(frame):
         back = Button(self.col_info, text='BACK', width=other_button_w, command=self.back)
         back.place(x=back_x, y=back_y)
 
-        clear = Button(self.col_info, text='CLEAR', command=self.clear)
-        clear.place(x=clear_x, y=clear_y)
+        # clear = Button(self.col_info, text='CLEAR', command=self.clear)
+        # clear.place(x=clear_x, y=clear_y)
 
         for i in range(len(self.col_name)):
             col = self.col_name[i]
@@ -193,8 +194,8 @@ class col_info(frame):
         self.col_info.destroy()
         table_info(self.root, self.fp)
 
-    def clear(self):
-        pass
+    # def clear(self):
+    #     pass
 
 
 class onecol(frame):
@@ -231,8 +232,8 @@ class onecol(frame):
         plot = Button(self.onecol, text='PLOT', width=func_button_w, command=self.plot)
         plot.place(x=0, y=title_u_l_y + 40 * 5)
 
-        search_col = Button(self.onecol, text='SEARCH COLUMN', width=func_button_w, command=self.search_col)
-        search_col.place(x=0, y=title_u_l_y + 40 * 6)
+        # search_col = Button(self.onecol, text='SEARCH COLUMN', width=func_button_w, command=self.search_col)
+        # search_col.place(x=0, y=title_u_l_y + 40 * 6)
 
         back = Button(self.onecol, text='BACK', width=other_button_w, command=self.back)
         back.place(x=back_x, y=back_y)
@@ -241,7 +242,6 @@ class onecol(frame):
         clear.place(x=clear_x+10, y=clear_y)
 
         self.onecol.pack(padx=10, pady=5, fill=tk.BOTH, expand=True)
-
 
     def show_col(self):
         self.clear()
@@ -267,8 +267,8 @@ class onecol(frame):
         self.onecol.destroy()
         plot_col(self.root, self.fp, self.name)
 
-    def search_col(self):
-        pass
+    # def search_col(self):
+    #     pass
 
     def back(self):
         self.onecol.destroy()
@@ -317,7 +317,6 @@ class plot_col(frame):
         self.clear = None
         self.toolbar = None
 
-
         label_title = tk.Label(self.plot_col, text=self.name, font=("Arial", 18))
         label_title.place(x=title_u_l_x, y=title_u_l_y)
 
@@ -342,7 +341,6 @@ class plot_col(frame):
         self.plot_col.pack(padx=10, pady=5, fill=tk.BOTH, expand=True)
 
 
-
     def piechart(self):
 
         self.canvas = FigureCanvasTkAgg(self.pl.pie_chart_col(self.name), self.plot_col)
@@ -351,7 +349,7 @@ class plot_col(frame):
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         self.clear = Button(self.plot_col, text='clear', command=self.clear_p)
-        self.clear.place(x=650, y=530, anchor='w')
+        self.clear.place(x=670, y=550, anchor='w')
 
         self.canvas.get_tk_widget().pack()
 
@@ -363,7 +361,7 @@ class plot_col(frame):
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         self.clear = Button(self.plot_col, text='clear', command=self.clear_p)
-        self.clear.place(x=650, y=530, anchor='w')
+        self.clear.place(x=670, y=550, anchor='w')
 
         self.canvas.get_tk_widget().pack()
 
@@ -375,7 +373,7 @@ class plot_col(frame):
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         self.clear = Button(self.plot_col, text='clear', command=self.clear_p)
-        self.clear.place(x=650, y=530, anchor='w')
+        self.clear.place(x=670, y=550, anchor='w')
 
         self.canvas.get_tk_widget().pack()
 
@@ -387,7 +385,7 @@ class plot_col(frame):
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         self.clear = Button(self.plot_col, text='clear', command=self.clear_p)
-        self.clear.place(x=650, y=530, anchor='w')
+        self.clear.place(x=670, y=550, anchor='w')
 
         self.canvas.get_tk_widget().pack()
 
@@ -402,33 +400,77 @@ class plot_col(frame):
 
 
 
-
-
 class search_table_info(frame):
 
     def __init__(self, root, fp):
-        super(search_table_info, self).__init__(self.root, self.fp)
+        super(search_table_info, self).__init__(root, fp)
         self.root.config()  # bg
-        # 基准界面initface
+
         self.search_table_info = tk.Frame(self.root)
 
-        self.text_x, self.text_y = 150, 50
+        self.text_x, self.text_y = 205, 50
 
         self.text = None
 
         self.bar_v = None
         self.bar_h = None
 
+        title = tk.Label(self.search_table_info, text='SEARCH', font=("Arial", 25))
+        title.place(x=0, y=20)
+
+        self.combos = []
+        self.targets = ['' for i in range(len(self.col_name) - 1)]
+        self.create_search()
+
+
+
+
+
+
+
+        search = Button(self.search_table_info, text='SEARCH', width=other_button_w, command=self.search)
+        search.place(x=back_x+50, y=back_y-60)
+
+        reset = Button(self.search_table_info, text='RESET', width=other_button_w, command=self.reset)
+        reset.place(x=back_x+50, y=back_y-30)
+
         back = Button(self.search_table_info, text='BACK', width=other_button_w, command=self.back)
         back.place(x=back_x, y=back_y)
         clear = Button(self.search_table_info, text='CLEAR', command=self.clear)
-        clear.place(x=clear_x, y=clear_y)
+        clear.place(x=clear_x+30, y=clear_y)
 
         self.search_table_info.pack(padx=10, pady=5, fill=tk.BOTH, expand=True)
 
+    def search(self):
+        for i in range(len(self.col_name)-1):
+            self.targets[i] = self.combos[i].get().split('\n')[0]
+        data = self.sc.check_table(self.targets)
+        self.__display(data)
+        # print(data)
+        # print(self.targets)
+
+    # def __get(self, *args):
+    #     self.targets[i] = self.combos[i].get()
+
+    def create_search(self):
+        for i in range(len(self.col_name) - 1):
+            col = self.col_name[i]
+            tk.Label(self.search_table_info, text=col.upper()).place(x=0, y=60 + i*60, anchor='w')
+
+            self.combos.append(ttk.Combobox(self.search_table_info, textvariable=tk.StringVar()))  # 初始化
+            self.combos[-1]["values"] = self.tr.show_col_content(col)
+            self.combos[-1].place(x=0, y=80 + i * 60)
+
+            # self.combos[-1].bind("<<ComboboxSelected>>", self.__get)  # 绑定事件,(下拉列表框被选中时，绑定go()函数)
+
+
+    def reset(self):
+        self.create_search()
+        self.targets = ['' for i in range(len(self.col_name) - 1)]
+
     def back(self):
         self.search_table_info.destroy()
-        col_info(self.root, self.fp)
+        table_info(self.root, self.fp)
 
     def clear(self):
         if self.text is not None:
@@ -441,22 +483,23 @@ class search_table_info(frame):
     def __display(self, data):
         content = data
 
-        self.bar_h = tk.Scrollbar(self.onecol, orient=tk.HORIZONTAL)
+        self.bar_h = tk.Scrollbar(self.search_table_info, orient=tk.HORIZONTAL)
         self.bar_h.pack(side=tk.BOTTOM, fill=tk.X)
 
-        self.bar_v = tk.Scrollbar(self.self.onecol, orient=tk.VERTICAL)
+        self.bar_v = tk.Scrollbar(self.search_table_info, orient=tk.VERTICAL)
         self.bar_v.pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.text = tk.Text(self.self.onecol, width=70, height=40, wrap="none")
+        self.text = tk.Text(self.search_table_info, width=65, height=40, wrap="none")
         self.text.config(xscrollcommand=self.bar_h.set)
         self.text.config(yscrollcommand=self.bar_v.set)
         self.text.place(x=self.text_x, y=self.text_y)
 
-        for i in range(1, len(content)):
+        for i in range(0, len(content)):
             self.text.insert(f'{i}.0', content[i])
 
         self.bar_h.config(command=self.text.xview)
         self.bar_v.config(command=self.text.yview)
+
 
 
 if __name__ == '__main__':
